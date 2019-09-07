@@ -53,6 +53,7 @@ typedef struct {
 } ElogFileCfg;
 
 /* elog_file.c */
+void elog_set_user_file(char* file_name);
 ElogErrCode elog_file_init(void);
 void elog_file_write(const char *log, size_t size);
 void elog_file_config(ElogFileCfg *cfg);

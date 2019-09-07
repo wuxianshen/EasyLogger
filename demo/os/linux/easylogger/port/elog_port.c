@@ -37,6 +37,12 @@
 #endif
 static pthread_mutex_t output_lock;
 
+//Set user log file name
+void elog_port_set_user_file(char* file_name)
+{
+    elog_set_user_file(file_name);
+}
+
 /**
  * EasyLogger port initialize
  *

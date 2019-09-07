@@ -163,6 +163,8 @@ typedef enum {
 } ElogErrCode;
 
 /* elog.c */
+void elog_user_file(char* file_name);
+
 ElogErrCode elog_init(void);
 void elog_start(void);
 void elog_set_output_enabled(bool enabled);

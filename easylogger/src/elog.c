@@ -144,6 +144,13 @@ extern void elog_port_output(const char *log, size_t size);
 extern void elog_port_output_lock(void);
 extern void elog_port_output_unlock(void);
 
+void elog_user_file(char* file_name)
+{
+    extern void elog_port_set_user_file(char* file_name);
+
+    elog_port_set_user_file(file_name);
+}
+
 /**
  * EasyLogger initialize.
  *

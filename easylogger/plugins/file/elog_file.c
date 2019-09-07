@@ -43,6 +43,13 @@ static FILE *fp = NULL;
 static int fd = -1;
 static ElogFileCfg local_cfg;
 
+//For user file define
+char* ELOG_USER_FILE_NAME = NULL;
+void elog_set_user_file(char* file_name)
+{
+    ELOG_USER_FILE_NAME = file_name;
+}
+
 ElogErrCode elog_file_init(void)
 {
     ElogErrCode result = ELOG_NO_ERR;
@@ -53,7 +60,15 @@ ElogErrCode elog_file_init(void)
 
     elog_file_port_init();
 
-    cfg.name = ELOG_FILE_NAME;
+    if ( ELOG_USER_FILE_NAME == NULL )
+    {
+        cfg.name = ELOG_FILE_NAME;
+    }
+    else
+    {
+       cfg.name = ELOG_USER_FILE_NAME;
+    }
+
     cfg.max_size = ELOG_FILE_MAX_SIZE;
     cfg.max_rotate = ELOG_FILE_MAX_ROTATE;
 
