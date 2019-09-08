@@ -35,6 +35,11 @@
 #ifdef ELOG_FILE_ENABLE
 #include <file/elog_file.h>
 #endif
+
+#ifdef ELOG_FILE_ENABLE
+#include <socket/elog_socket.h>
+#endif
+
 static pthread_mutex_t output_lock;
 
 //Set user log file name
@@ -57,6 +62,10 @@ ElogErrCode elog_port_init(void) {
     elog_file_init();
 #endif
 
+#ifdef ELOG_SOCKET_ENABLE
+    elog_socket_init();
+#endif
+
     return result;
 }
 
@@ -72,7 +81,11 @@ void elog_port_output(const char *log, size_t size) {
 #ifdef ELOG_FILE_ENABLE
     /* write the file */
     elog_file_write(log, size);
-#endif 
+#endif
+
+#ifdef ELOG_SOCKET_ENABLE
+    elog_socket_write(log, size);
+#endif
 }
 
 /**

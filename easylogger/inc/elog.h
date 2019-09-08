@@ -160,10 +160,12 @@ typedef struct {
 /* EasyLogger error code */
 typedef enum {
     ELOG_NO_ERR,
+    ELOG_SOCKET_CREATE_ERR,
 } ElogErrCode;
 
 /* elog.c */
 void elog_user_file(char* file_name);
+void elog_user_socket(char* _ip, unsigned short _port);
 
 ElogErrCode elog_init(void);
 void elog_start(void);

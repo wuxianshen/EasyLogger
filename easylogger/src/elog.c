@@ -151,6 +151,13 @@ void elog_user_file(char* file_name)
     elog_port_set_user_file(file_name);
 }
 
+void elog_user_socket(char* _ip, unsigned short _port)
+{
+    extern void elog_set_user_socket_param(const char* _ip, unsigned short _port);
+
+    elog_set_user_socket_param(_ip, _port);
+}
+
 /**
  * EasyLogger initialize.
  *
