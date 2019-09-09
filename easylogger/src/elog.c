@@ -101,6 +101,9 @@
 #ifndef ELOG_COLOR_INFO
 #define ELOG_COLOR_INFO                (F_CYAN B_NULL S_NORMAL)
 #endif
+#ifndef ELOG_COLOR_SERVER
+#define ELOG_COLOR_SERVER              (F_CYAN B_NULL S_NORMAL)
+#endif
 #ifndef ELOG_COLOR_DEBUG
 #define ELOG_COLOR_DEBUG               (F_GREEN B_NULL S_NORMAL)
 #endif
@@ -120,6 +123,7 @@ static const char *level_output_info[] = {
         [ELOG_LVL_WARN]    = "W/",
         [ELOG_LVL_INFO]    = "I/",
         [ELOG_LVL_DEBUG]   = "D/",
+        [ELOG_LVL_SERVER]  = "S/",
         [ELOG_LVL_VERBOSE] = "V/",
 };
 
@@ -131,6 +135,7 @@ static const char *color_output_info[] = {
         [ELOG_LVL_WARN]    = ELOG_COLOR_WARN,
         [ELOG_LVL_INFO]    = ELOG_COLOR_INFO,
         [ELOG_LVL_DEBUG]   = ELOG_COLOR_DEBUG,
+        [ELOG_LVL_SERVER]  = ELOG_COLOR_SERVER,
         [ELOG_LVL_VERBOSE] = ELOG_COLOR_VERBOSE,
 };
 #endif /* ELOG_COLOR_ENABLE */
@@ -408,7 +413,7 @@ void elog_output(uint8_t level, const char *tag, const char *file, const char *f
     va_list args;
     int fmt_result;
 
-    ELOG_ASSERT(level <= ELOG_LVL_VERBOSE);
+    ELOG_ASSERT(level < ELOG_LVL_TOTAL_NUM);
 
     /* check output enabled */
     if (!elog.output_enabled) {
@@ -542,7 +547,11 @@ void elog_output(uint8_t level, const char *tag, const char *file, const char *f
 #endif
 
     /* package newline sign */
-    log_len += elog_strcpy(log_len, log_buf + log_len, ELOG_NEWLINE_SIGN);
+    if ( level != ELOG_LVL_SERVER )
+    {
+        log_len += elog_strcpy(log_len, log_buf + log_len, ELOG_NEWLINE_SIGN);
+    }
+
     /* output log */
 #if defined(ELOG_ASYNC_OUTPUT_ENABLE)
     extern void elog_async_output(uint8_t level, const char *log, size_t size);
@@ -620,6 +629,7 @@ int8_t elog_find_lvl(const char *log) {
     ELOG_ASSERT(elog.enabled_fmt_set[ELOG_LVL_WARN] & ELOG_FMT_LVL);
     ELOG_ASSERT(elog.enabled_fmt_set[ELOG_LVL_INFO] & ELOG_FMT_LVL);
     ELOG_ASSERT(elog.enabled_fmt_set[ELOG_LVL_DEBUG] & ELOG_FMT_LVL);
+    ELOG_ASSERT(elog.enabled_fmt_set[ELOG_LVL_SERVER] & ELOG_FMT_LVL);
     ELOG_ASSERT(elog.enabled_fmt_set[ELOG_LVL_VERBOSE] & ELOG_FMT_LVL);
 
 #ifdef ELOG_COLOR_ENABLE

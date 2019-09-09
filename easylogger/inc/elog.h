@@ -44,10 +44,11 @@ extern "C" {
 #define ELOG_LVL_WARN                        2
 #define ELOG_LVL_INFO                        3
 #define ELOG_LVL_DEBUG                       4
-#define ELOG_LVL_VERBOSE                     5
+#define ELOG_LVL_SERVER                      5
+#define ELOG_LVL_VERBOSE                     6
 
 /* output log's level total number */
-#define ELOG_LVL_TOTAL_NUM                   6
+#define ELOG_LVL_TOTAL_NUM                   7
 
 /* EasyLogger software version number */
 #define ELOG_SW_VERSION                      "2.1.99"
@@ -74,6 +75,7 @@ extern "C" {
     #define elog_warn(tag, ...)
     #define elog_info(tag, ...)
     #define elog_debug(tag, ...)
+    #define elog_server(tag, ...)
     #define elog_verbose(tag, ...)
 #else /* ELOG_OUTPUT_ENABLE */
     #if ELOG_OUTPUT_LVL >= ELOG_LVL_ASSERT
@@ -116,6 +118,13 @@ extern "C" {
                 elog_output(ELOG_LVL_VERBOSE, tag, __FILE__, __FUNCTION__, __LINE__, __VA_ARGS__)
     #else
         #define elog_verbose(tag, ...)
+    #endif /* ELOG_OUTPUT_LVL == ELOG_LVL_VERBOSE */
+
+    #if ELOG_OUTPUT_LVL == ELOG_LVL_SERVER
+        #define elog_server(tag, ...) \
+                elog_output(ELOG_LVL_SERVER, tag, __FILE__, __FUNCTION__, __LINE__, __VA_ARGS__)
+    #else
+        #define elog_server(tag, ...)
     #endif /* ELOG_OUTPUT_LVL == ELOG_LVL_VERBOSE */
 #endif /* ELOG_OUTPUT_ENABLE */
 
@@ -194,6 +203,7 @@ void elog_hexdump(const char *name, uint8_t width, uint8_t *buf, uint16_t size);
 #define elog_i(tag, ...)     elog_info(tag, __VA_ARGS__)
 #define elog_d(tag, ...)     elog_debug(tag, __VA_ARGS__)
 #define elog_v(tag, ...)     elog_verbose(tag, __VA_ARGS__)
+#define elog_s(tag, ...)     elog_server(tag, __VA_ARGS__)
 
 /**
  * log API short definition
@@ -229,6 +239,11 @@ void elog_hexdump(const char *name, uint8_t width, uint8_t *buf, uint16_t size);
     #define log_d(...)       elog_d(LOG_TAG, __VA_ARGS__)
 #else
     #define log_d(...)       ((void)0);
+#endif
+#if LOG_LVL >= ELOG_LVL_SERVER
+    #define log_s(...)       elog_s(LOG_TAG, __VA_ARGS__)
+#else
+    #define log_s(...)       ((void)0);
 #endif
 #if LOG_LVL >= ELOG_LVL_VERBOSE
     #define log_v(...)       elog_v(LOG_TAG, __VA_ARGS__)
