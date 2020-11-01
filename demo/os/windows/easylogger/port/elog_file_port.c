@@ -22,52 +22,44 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * Function:  It is an head file for file log plugin. You can see all be called functions.
+ * Function:  Portable interface for EasyLogger's file log pulgin.
  * Created on: 2019-01-05
  */
 
-#ifndef __ELOG_FILE__H__
-#define __ELOG_FILE__H__
+#include <elog_file.h>
 
-#include <stdio.h>
-#include <elog.h>
-#include <elog_file_cfg.h>
+/**
+ * EasyLogger flile log pulgin port initialize
+ *
+ * @return result
+ */
+ElogErrCode elog_file_port_init(void) {
+    ElogErrCode result = ELOG_NO_ERR;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    /* do noting, using elog_port.c's locker only */
 
-/* EasyLogger file log plugin's software version number */
-#define ELOG_FILE_SW_VERSION                "V1.0.0"
-#ifdef linux
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-#else
-#define likely(x)   (x)
-#define unlikely(x) (x)
-#endif
-
-typedef struct {
-    char *name;              /* file name */
-    size_t max_size;         /* file max size */
-    int max_rotate;          /* max rotate file count */
-} ElogFileCfg;
-
-/* elog_file.c */
-void elog_set_user_file(char* file_name);
-ElogErrCode elog_file_init(void);
-void elog_file_write(const char *log, size_t size);
-void elog_file_config(ElogFileCfg *cfg);
-void elog_file_deinit(void);
-
-/* elog_file_port.c */
-ElogErrCode elog_file_port_init(void);
-void elog_file_port_lock(void);
-void elog_file_port_unlock(void);
-void elog_file_port_deinit(void);
-
-#ifdef __cplusplus
+    return result;
 }
-#endif
 
-#endif
+/**
+ * file log lock
+ */
+void elog_file_port_lock(void)
+{
+    /* do noting, using elog_port.c's locker only */
+}
+
+/**
+ * file log unlock
+ */
+void elog_file_port_unlock(void)
+{
+    /* do noting, using elog_port.c's locker only */
+}
+/**
+ * file log deinit
+ */
+void elog_file_port_deinit(void)
+{
+    /* do noting, using elog_port.c's locker only */
+}

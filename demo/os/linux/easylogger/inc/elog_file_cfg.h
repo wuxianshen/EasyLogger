@@ -22,52 +22,20 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * Function:  It is an head file for file log plugin. You can see all be called functions.
+ * Function:  It is the configure head file for this flash log plugin.
  * Created on: 2019-01-05
  */
 
-#ifndef __ELOG_FILE__H__
-#define __ELOG_FILE__H__
+#ifndef _ELOG_FILE_CFG_H_
+#define _ELOG_FILE_CFG_H_
 
-#include <stdio.h>
-#include <elog.h>
-#include <elog_file_cfg.h>
+/* EasyLogger file log plugin's using file name */
+#define ELOG_FILE_NAME      "./elog_file.log"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/* EasyLogger file log plugin's using file max size */
+#define ELOG_FILE_MAX_SIZE  (1 * 1024 * 1024)
 
-/* EasyLogger file log plugin's software version number */
-#define ELOG_FILE_SW_VERSION                "V1.0.0"
-#ifdef linux
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
-#else
-#define likely(x)   (x)
-#define unlikely(x) (x)
-#endif
+/* EasyLogger file log plugin's using max rotate file count */
+#define ELOG_FILE_MAX_ROTATE 5
 
-typedef struct {
-    char *name;              /* file name */
-    size_t max_size;         /* file max size */
-    int max_rotate;          /* max rotate file count */
-} ElogFileCfg;
-
-/* elog_file.c */
-void elog_set_user_file(char* file_name);
-ElogErrCode elog_file_init(void);
-void elog_file_write(const char *log, size_t size);
-void elog_file_config(ElogFileCfg *cfg);
-void elog_file_deinit(void);
-
-/* elog_file_port.c */
-ElogErrCode elog_file_port_init(void);
-void elog_file_port_lock(void);
-void elog_file_port_unlock(void);
-void elog_file_port_deinit(void);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+#endif /* _ELOG_FILE_CFG_H_ */
