@@ -31,6 +31,10 @@
 
 /* enable log output. default open this macro */
 #define ELOG_OUTPUT_ENABLE
+/* enable log write file. default open this macro */
+#define ELOG_FILE_ENABLE
+/* enable flush file cache. default open this macro */
+#define ELOG_FILE_FLUSH_CAHCE_ENABLE
 /* setting static output log level */
 #define ELOG_OUTPUT_LVL                      ELOG_LVL_VERBOSE
 /* enable assert check */
@@ -43,6 +47,8 @@
 #define ELOG_FILTER_TAG_MAX_LEN              16
 /* output filter's keyword max length */
 #define ELOG_FILTER_KW_MAX_LEN               16
+/* output filter's tag level max num */
+#define ELOG_FILTER_TAG_LVL_MAX_NUM          5
 /* output newline sign */
 #define ELOG_NEWLINE_SIGN                    "\n"
 

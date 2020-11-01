@@ -338,6 +338,40 @@ void elog_set_filter(uint8_t level, const char *tag, const char *keyword)
 |tag                                     |标签|
 |keyword                                 |关键词|
 
+#### 1.7.3 按模块的级别过滤
+
+这里指的**模块**代表一类具有相同标签属性的日志代码。有些时候需要在运行时动态的修改某一个模块的日志输出级别。
+
+```
+void elog_set_filter_tag_lvl(const char *tag, uint8_t level);
+```
+
+|参数                                    |描述|
+|:-----                                  |:----|
+|tag                                     |日志的标签|
+|level                                   |设定的日志级别|
+
+参数 level 日志级别可取如下值：
+
+|**级别**             |**名称**            |
+| --------------------- | ---------------- |
+| ELOG_LVL_ASSERT        | 断言             |
+| ELOG_LVL_ERROR         | 错误             |
+| ELOG_LVL_WARNING       | 警告             |
+| ELOG_LVL_INFO          | 信息             |
+| ELOG_LVL_DEBUG | 调试             |
+| ELOG_LVL_VERBOSE | 详细 |
+| ELOG_FILTER_LVL_SILENT | 静默（停止输出） |
+| ELOG_FILTER_LVL_ALL    | 全部             |
+
+函数调用如下所示：
+
+| 功能        | 函数调用            |
+| ---------------- | ------------------------------ |
+| 关闭 `wifi` 模块全部日志  | `elog_set_filter_tag_lvl("wifi", ELOG_FILTER_LVL_SILENT);` |
+| 开启 `wifi` 模块全部日志       | `elog_set_filter_tag_lvl("wifi", ELOG_FILTER_LVL_ALL);` |
+| 设置 `wifi` 模块日志级别为警告 | `elog_set_filter_tag_lvl("wifi", ELOG_LVL_WARNING);` |
+
 ### 1.8 缓冲输出模式
 
 #### 1.8.1 使能/失能缓冲输出模式

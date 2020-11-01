@@ -58,6 +58,8 @@ int main(void) {
 //    elog_set_filter_tag("main");
     /* dynamic set output logs's filter for keyword */
 //    elog_set_filter_kw("Hello");
+    /* dynamic set output logs's tag filter */
+//    elog_set_filter_tag_lvl("main", ELOG_LVL_WARN);
 
     /* test logger output */
     test_elog();
@@ -78,6 +80,6 @@ void test_elog(void) {
         log_d("Hello EasyLogger!");
         log_v("Hello EasyLogger!");
 //        elog_raw("Hello EasyLogger!");
-        Sleep(5000);
+        Sleep(1000);
     }
 }
