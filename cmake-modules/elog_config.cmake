@@ -1,5 +1,9 @@
 
-set(OS_EASYLOG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/easylogger-fork/demo/os/linux/easylogger)
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+  set(OS_EASYLOG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/easylogger/demo/os/linux/easylogger)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
+  set(OS_EASYLOG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/easylogger/demo/os/windows/easylogger)
+endif ()
 
 ##################
 ## Include_Dirs ##
